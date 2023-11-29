@@ -3,3 +3,5 @@
         1.1.1. /url
         1.1.2. /url/analytic/:shortId
         1.1.3. /:shortId
+
+2. Complete Frontend using EJS

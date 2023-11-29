@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="/styles/home1.css" />
+  </head>
+  <body>
+    <h1>URL Shortener</h1>
+
+    <% if (locals.id) { %>
+    <p>
+      URL Generated:
+      <a href="http://localhost:8000/url/<%= locals.id %>" target="_blank"
+        >Click Here</a
+      >
+    </p>
+    <p>URL Generated : http://localhost:8000/url/<%= id %></p>
+    <% } %>
+
+    <div>
+      <form method="post" action="/url">
+        <label>Enter Your Original URL : </label>
+        <!-- NOTE : We must pass value in name parameter as backend req.body in controller where data read -->
+        <input type="text" name="url" placeholder="Enter URL to shorten" />
+        <br />
+        <button type="submit">Generate</button>
+      </form>
+    </div>
+
+    <hr />
+
+    <div>
+      <% if (locals.urls) { %>
+      <table>
+        <thead>
+          <th>Sr. No</th>
+          <th>Short ID</th>
+          <th>Redirect URL</th>
+          <th>Total Clicks</th>
+        </thead>
+        <tbody>
+          <% urls.forEach((url,index) => { %>
+          <tr>
+            <td><%= url.index + 1 %></td>
+            <td><%= url.shortId %></td>
+            <td><%= url.redirectURL %></td>
+            <td><%= url.visitHistory.length %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+    </div>
+  </body>
+</html>

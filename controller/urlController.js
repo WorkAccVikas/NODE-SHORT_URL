@@ -3,6 +3,10 @@ const urlModel = require("../model/urlModel");
 
 async function handleGenerateNewShortURL(req, res) {
   const { url } = req.body;
+  console.log(
+    `🚀 ~ file: urlController.js:6 ~ handleGenerateNewShortURL ~ url:`,
+    req.body
+  );
   if (!url || typeof url !== "string")
     return res
       .status(400)
@@ -24,6 +28,10 @@ async function handleGenerateNewShortURL(req, res) {
     `🚀 ~ file: urlController.js:23 ~ handleGenerateNewShortURL ~ res:`,
     result
   );
+
+  return res.render("home1", {
+    id: shortId,
+  });
 
   return res.status(201).json({ id: shortId });
 }
