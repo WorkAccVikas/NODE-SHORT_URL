@@ -1,34 +1,43 @@
 require("dotenv").config();
 
+const PORT = process.env.PORT || 4000;
+
 const express = require("express");
 const path = require("path");
 const app = express();
+const cookieParser = require("cookie-parser");
+
 const mongoConnection = require("./connection/connection");
-const PORT = process.env.PORT || 4000;
 
 const urlRoute = require("./routes/urlRoutes");
 const staticRoute = require("./routes/staticRouter");
+const userRoute = require("./routes/user");
+
 const urlModel = require("./model/urlModel");
 
-mongoConnection();
-app.use(express.json());
+const { restrictToLoggedInUserOnly, checkAuth } = require("./middleware/auth");
 
-// NOTE : It is used when data pass from form data (Frontend)
-app.use(express.urlencoded({ extended: false }));
+mongoConnection();
 
 // console.log(path.join(__dirname, "public"));
 
 // POINT : Configure css file with ejs file => CSS file : ./public/styles/home1.css
 app.use(express.static(path.join(__dirname, "public")));
-
 // POINT : SETUP EJS
 app.set("view engine", "ejs");
-
 // POINT : SETUP VIEW FOLDER PATH
 app.set("views", path.resolve("./view"));
 
-app.use("/url", urlRoute);
-app.use("/", staticRoute);
+// POINT : middleware
+app.use(cookieParser());
+app.use(express.json());
+// NOTE : It is used when data pass from form data (Frontend)
+app.use(express.urlencoded({ extended: false }));
+
+// POINT : routes
+app.use("/url", restrictToLoggedInUserOnly, urlRoute);
+app.use("/user", userRoute);
+app.use("/", checkAuth, staticRoute);
 
 app.get("/url/:shortId", async (req, res) => {
   const entry = await urlModel.findOneAndUpdate(
@@ -76,6 +85,7 @@ app.get("/test1", async (req, res) => {
   });
 });
 
+// POINT : LISTENING
 app.listen(PORT, () =>
   console.log(`Server running : http://localhost:${PORT}`)
 );

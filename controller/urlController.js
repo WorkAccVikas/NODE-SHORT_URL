@@ -23,7 +23,9 @@ async function handleGenerateNewShortURL(req, res) {
     shortId,
     redirectURL: url,
     // visitHistory: [],
+    createdBy: req.user._id,
   });
+  
   console.log(
     `🚀 ~ file: urlController.js:23 ~ handleGenerateNewShortURL ~ res:`,
     result

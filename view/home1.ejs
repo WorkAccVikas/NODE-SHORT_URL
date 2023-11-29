@@ -12,7 +12,7 @@
     <% if (locals.id) { %>
     <p>
       URL Generated:
-      <a href="http://localhost:8000/url/<%= locals.id %>" target="_blank"
+      <a href="http://localhost:8000/url/<%= id %>" target="_blank"
         >Click Here</a
       >
     </p>
@@ -43,7 +43,7 @@
         <tbody>
           <% urls.forEach((url,index) => { %>
           <tr>
-            <td><%= url.index + 1 %></td>
+            <td><%= index + 1 %></td>
             <td><%= url.shortId %></td>
             <td><%= url.redirectURL %></td>
             <td><%= url.visitHistory.length %></td>
