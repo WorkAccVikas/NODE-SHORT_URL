@@ -10,3 +10,13 @@
     - Issue when server restart all users logout (This problem of Stateful Authentication)
 
 4. Implement Stateless Authentication using jwt
+
+5. Implement Following : 
+    Implement Cookies
+    Implement for Mobile and other client that doesn't support cookie
+        - Test (Using Postman)
+            - /user/login (POST)  : received token in response from server 
+            - / (GET) : 
+                - Client Side : 
+                    - Pass token in header as Authorization 
+                    - If you get visible home route(means home1 page) then success
