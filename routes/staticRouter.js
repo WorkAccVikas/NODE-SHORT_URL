@@ -15,6 +15,7 @@ router.route("/signup").get((req, res) => {
 });
 
 router.route("/login").get((req, res) => {
+  console.log("Ram = ", req.user);
   return res.render("login");
 });
 

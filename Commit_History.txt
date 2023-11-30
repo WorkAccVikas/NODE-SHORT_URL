@@ -8,3 +8,5 @@
 
 3. Implement Stateful Authentication using cookie
     - Issue when server restart all users logout (This problem of Stateful Authentication)
+
+4. Implement Stateless Authentication using jwt

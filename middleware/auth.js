@@ -1,19 +1,28 @@
 const { getUser } = require("../service/auth");
+const { getUser1 } = require("../service/auth1");
 
-function checkAuth(req, res, next) {
+async function checkAuth(req, res, next) {
   const userUid = req.cookies?.uid;
 
-  const user = getUser(userUid);
+  // POINT : Stateful Authentication
+  // const user = getUser(userUid);
+  // POINT : Stateless Authentication
+  const user = await getUser1(userUid);
 
   req.user = user;
 
   next();
 }
-function restrictToLoggedInUserOnly(req, res, next) {
+
+async function restrictToLoggedInUserOnly(req, res, next) {
   const userUid = req.cookies?.uid;
   if (!userUid) return res.redirect("/login");
 
-  const user = getUser(userUid);
+  // POINT : Stateful Authentication
+  // const user = getUser(userUid);
+  // POINT : Stateless Authentication
+  const user = await getUser1(userUid);
+
   if (!user) return res.redirect("/login");
 
   req.user = user;
