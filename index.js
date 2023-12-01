@@ -15,7 +15,8 @@ const userRoute = require("./routes/user");
 
 const urlModel = require("./model/urlModel");
 
-const { restrictToLoggedInUserOnly, checkAuth } = require("./middleware/auth");
+// const { restrictToLoggedInUserOnly, checkAuth } = require("./middleware/auth");
+const { checkForAuthentication, restrictTo } = require("./middleware/auth1");
 
 mongoConnection();
 
@@ -33,11 +34,12 @@ app.use(cookieParser());
 app.use(express.json());
 // NOTE : It is used when data pass from form data (Frontend)
 app.use(express.urlencoded({ extended: false }));
+app.use(checkForAuthentication);
 
 // POINT : routes
-app.use("/url", restrictToLoggedInUserOnly, urlRoute);
+app.use("/url", restrictTo(["NORMAL", "ADMIN"]), urlRoute);
 app.use("/user", userRoute);
-app.use("/", checkAuth, staticRoute);
+app.use("/", staticRoute);
 
 app.get("/url/:shortId", async (req, res) => {
   const entry = await urlModel.findOneAndUpdate(

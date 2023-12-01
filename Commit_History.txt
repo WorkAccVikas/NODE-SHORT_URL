@@ -20,3 +20,5 @@
                 - Client Side : 
                     - Pass token in header as Authorization 
                     - If you get visible home route(means home1 page) then success
+
+6. Implement Authorization
