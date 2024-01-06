@@ -22,3 +22,6 @@
                     - If you get visible home route(means home1 page) then success
 
 6. Implement Authorization
+
+7. Add LEARN.txt : 
+    - In this document, I have outlined what I have learned throughout the project.
